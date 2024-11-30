@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar bg-dark text-white">
+        <div class="container">
+          <div class="navbar-brand fw-bold ps-3">
+            <a href="#">LOGO</a>
+          </div>
+          <ul class="nav-links d-flex m-0" id="navbar">
+            <i class="hide-toggle gg-close"></i>
+            {% if user.is_authenticated %}
+            <il class="nav-link" id="home"><a href='/'>Home</a></il>
+            <il class="nav-link" id="logout"><a href='/logout'>Logout</a></il>
+            {% else %}
+            <il class="nav-link" id="login"><a href='/login'>Login</a></il>
+            <il class="nav-link" id="signup"><a href='/signup'>Sign up</a></il>
+            {% endif %}
+          </ul>
+          <div class="menu-toggle">
+            <i class="d-sm-block d-sm-none gg-menu-right"></i>
+          </div>
+        </div>
+      </nav>
+
+      {% with messages = get_flashed_messages(with_categories = true)%} 
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-success alter-dismissable fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <div class="container">{% block content %} {% endblock %}</div>
+
+      <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+</body>
+</html>
